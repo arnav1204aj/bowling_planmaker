@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #121212);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 3.5rem;
+            color: #ff9800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        #searchBar {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 50px;
+            background-color: #2a2a3b;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            outline: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        #searchBar:focus {
+            background-color: #3a3a4f;
+            transform: scale(1.05);
+        }
+
+        #searchBar::placeholder {
+            color: #b0bec5;
+        }
+
+        .suggestions {
+            background-color: #2a2a3b;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .suggestion-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            color: #ff9800;
+            font-size: 1.1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .suggestion-item:hover {
+            background-color: #ff9800;
+            color: black;
+        }
+
+        .dashboard-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            align-items: stretch; /* Ensure equal height of columns */
+        }
+
+        .left-column, .right-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%; /* Ensure columns stretch to full height */
+        }
+
+        .info-block {
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #2a2a3b;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            position: relative;
+            flex-grow: 0; /* Prevent this block from taking extra space */
+            height: auto; /* Allow this to take only the necessary space */
+        }
+
+        .info-block:hover,
+.wagon-wheel-block:hover,
+.plot-block:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.9);
+}
+
+/* Smooth transition for all blocks */
+.info-block, .wagon-wheel-block, .plot-block {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+       
+       
+
+        .info-block h2 {
+            font-size: 2rem;
+            color: #ff9800;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .info-block p {
+            font-size: 1rem;
+            color: #b0bec5;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        .info-block .stat-value {
+            font-size: 2rem;
+            color: white;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .info-block img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 3px solid #ff9800;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .wagon-wheel-block {
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #2a2a3b;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+            flex-grow: 1; /* Allow this block to take up remaining space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%; /* Ensure it takes remaining height */
+        }
+        
+        .wagon-wheel-block img {
+    width: 80%; /* Reduce width from 100% to 80% */
+    height: auto;
+    margin: auto; /* Center the image horizontally */
+    object-fit: contain;
+    margin-top: 10px;
+    border: 3px solid #ff9800;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+        .wagon-wheel-block h2 {
+            font-size: 2rem;
+            color: #ff9800;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif; /* Match the font family to the other headings */
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e1e2f;
+            color: #b0bec5;
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-top: 30px;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Plot section styles */
+        #plot-section {
+            margin-top: 30px;
+        }
+
+        .plot-block {
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #2a2a3b;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .plot-block img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 3px solid #ff9800;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .plot-block h2 {
+            font-size: 1.8rem;
+            color: #ff9800;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Rank Highlighting */
+        .rank-highlight {
+            font-size: 1.2rem;
+            color: #ff9800;
+            font-weight: 700;
+            margin-left: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bowling Plan-Maker</h1>
+        <input type="text" id="searchBar" placeholder="Search for a player..." oninput="showSuggestions()">
+        <div id="suggestions" class="suggestions"></div>
+        <div id="dashboard"></div>
+        <div id="plot-section" class="dashboard-row"></div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Cricket Stats. All rights reserved.</p>
+    </div>
+
+    <script>
+        let playerData;
+        let effsrResults;
+        let bathandData;
+
+        fetch('t20/stat360.json')
+            .then(response => response.json())
+            .then(data => { playerData = data; })
+            .catch(error => console.error('Error loading player stats JSON:', error));
+
+        fetch('t20/effsr_results.json')
+            .then(response => response.json())
+            .then(data => { effsrResults = data; })
+            .catch(error => console.error('Error loading effsr results JSON:', error));
+
+        fetch('t20/bathand.json')
+            .then(response => response.json())
+            .then(data => { bathandData = data; })
+            .catch(error => console.error('Error loading bathand JSON:', error));
+
+            function renderPlayerCard(playerName) {
+                document.getElementById('suggestions').innerHTML = ''; // Clear suggestions
+    const dashboard = document.getElementById('dashboard');
+    const plotSection = document.getElementById('plot-section');
+    dashboard.innerHTML = '';
+    plotSection.innerHTML = ''; // Clear previous plots
+
+    const playerInfo = playerData[playerName];
+    const effsrData = effsrResults[playerName];
+    const bathand = bathandData[playerName];
+
+    if (!playerInfo || !effsrData || !bathand) {
+        console.error(`Data missing for ${playerName}`);
+        return;
+    }
+
+    // Access rank values
+    const player360Rank = playerInfo.rank || 'N/A';
+    const paceRank = effsrData.pacerank || 'N/A';
+    const spinRank = effsrData.spinrank || 'N/A';
+
+    // Player info block
+    const row = document.createElement('div');
+    row.className = 'dashboard-row';
+
+    const leftColumn = document.createElement('div');
+    leftColumn.className = 'left-column';
+
+    const playerCard = document.createElement('div');
+    playerCard.className = 'info-block';
+    playerCard.innerHTML = ` 
+        <h2>${playerName}</h2>
+        <p><strong>Batting Hand:</strong> ${bathand}</p>
+        <p><strong>Pace Intent:</strong> <span class="stat-value">${effsrData.pace.toFixed(2)} <span class="rank-highlight">(RANK ${paceRank})</span></span></p>
+        <p><strong>Spin Intent:</strong> <span class="stat-value">${effsrData.spin.toFixed(2)} <span class="rank-highlight">(RANK ${spinRank})</span></span></p>
+        <p><strong>360 Score:</strong> <span class="stat-value">${Math.round(playerInfo['360score'])} <span class="rank-highlight">(RANK ${player360Rank})</span></span></p>
+    `;
+
+    // Wagon Wheel block
+    const wagonWheelCard = document.createElement('div');
+    wagonWheelCard.className = 'wagon-wheel-block';
+    wagonWheelCard.innerHTML = `
+        <h2>Intelligent Wagon Wheel</h2>
+        <img src="${playerInfo['iww']}" alt="Intelligent Wagon Wheel for ${playerName}">
+    `;
+
+    leftColumn.appendChild(playerCard);
+    leftColumn.appendChild(wagonWheelCard);
+    row.appendChild(leftColumn);
+
+    // Plot Section (right column)
+    const rightColumn = document.createElement('div');
+    rightColumn.className = 'right-column';
+
+    // Efficiency plot block
+    const efficiencyBlock = document.createElement('div');
+    efficiencyBlock.className = 'plot-block';
+    efficiencyBlock.innerHTML = `<h2>Intent Progression</h2>`;
+    const efficiencyPlot = document.createElement('img');
+    efficiencyPlot.src = `plots/${playerName.replace(' ', '_')}_efficiency.png`;
+    efficiencyBlock.appendChild(efficiencyPlot);
+    rightColumn.appendChild(efficiencyBlock);
+
+    // Target Deliveries plot block
+    const targetDeliveriesBlock = document.createElement('div');
+    targetDeliveriesBlock.className = 'plot-block';
+    targetDeliveriesBlock.innerHTML = `<h2>Target Deliveries</h2>`;
+    const weakspotPlot = document.createElement('img');
+    weakspotPlot.src = `weakspots/${playerName.replace(' ', '_')}_ws.png`;
+    targetDeliveriesBlock.appendChild(weakspotPlot);
+    rightColumn.appendChild(targetDeliveriesBlock);
+
+    row.appendChild(rightColumn);
+    dashboard.appendChild(row);
+}
+
+
+        function showSuggestions() {
+            const searchBar = document.getElementById('searchBar');
+            const suggestionsDiv = document.getElementById('suggestions');
+            const query = searchBar.value.toLowerCase();
+
+            if (!query) {
+                suggestionsDiv.innerHTML = '';
+                return;
+            }
+
+            const matches = Object.keys(playerData).filter(player => player.toLowerCase().includes(query));
+            suggestionsDiv.innerHTML = matches.map(player => `
+                <div class="suggestion-item" onclick="renderPlayerCard('${player}')">${player}</div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
