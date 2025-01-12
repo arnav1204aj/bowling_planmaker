@@ -326,7 +326,7 @@
     efficiencyBlock.className = 'plot-block';
     efficiencyBlock.innerHTML = `<h2>Intent Progression</h2>`;
     const efficiencyPlot = document.createElement('img');
-    efficiencyPlot.src = `plots/${playerName.replace(' ', '_')}_efficiency.png`;
+    efficiencyPlot.src = `plots/${playerName.split(' ').join('_')}_efficiency.png`;
     efficiencyBlock.appendChild(efficiencyPlot);
     rightColumn.appendChild(efficiencyBlock);
 
@@ -335,7 +335,7 @@
     targetDeliveriesBlock.className = 'plot-block';
     targetDeliveriesBlock.innerHTML = `<h2>Target Deliveries</h2>`;
     const weakspotPlot = document.createElement('img');
-    weakspotPlot.src = `weakspots/${playerName.replace(' ', '_')}_ws.png`;
+    weakspotPlot.src = `weakspots/${playerName.split(' ').join('_')}_ws.png`;
     targetDeliveriesBlock.appendChild(weakspotPlot);
     rightColumn.appendChild(targetDeliveriesBlock);
 
