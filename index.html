@@ -124,15 +124,28 @@
             rightColumn.appendChild(fshotsBlock);
             // Target Deliveries plot block
             const targetDeliveriesBlock = document.createElement('div');
-            targetDeliveriesBlock.className = 'plot-block';
-            targetDeliveriesBlock.innerHTML = `<h2>Target Deliveries</h2>`;
-            const weakspotPlot = document.createElement('img');
-            weakspotPlot.src = `weakspots/${playerName.split(' ').join('_')}_ws.png`;
-            targetDeliveriesBlock.appendChild(weakspotPlot);
-            rightColumn.appendChild(targetDeliveriesBlock);
+targetDeliveriesBlock.className = 'plot-block';
+targetDeliveriesBlock.innerHTML = `<h2>Target Deliveries</h2>`;
+
+// Create and append the image
+const weakspotPlot = document.createElement('img');
+weakspotPlot.src = `weakspots/${playerName.split(' ').join('_')}_ws.png`;
+weakspotPlot.style.width = '100%'; // Make image fill the parent div
+weakspotPlot.style.height = 'auto'; // Maintain aspect ratio
+targetDeliveriesBlock.appendChild(weakspotPlot);
+
+// Add styles for the block
+targetDeliveriesBlock.style.width = '80%';
+targetDeliveriesBlock.style.margin = '0 auto'; // Center the block
+targetDeliveriesBlock.style.textAlign = 'center'; // Center the content
+
+// Example of appending the block to a container
+document.body.appendChild(targetDeliveriesBlock);
+            
 
             row.appendChild(rightColumn);
             dashboard.appendChild(row);
+            dashboard.appendChild(targetDeliveriesBlock);
         }
 
         function showSuggestions() {
