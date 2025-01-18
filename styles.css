@@ -100,11 +100,13 @@ h1 {
 .info-block:hover,
 .wagon-wheel-block:hover,
 .plot-block:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.9);
+    transform:transform 0.3s, box-shadow 0.3s;
+   
 }
 
+
 .info-block h2 {
+    display: inline;
     font-size: 2rem;
     color: #ff9800;
     margin-bottom: 10px;
