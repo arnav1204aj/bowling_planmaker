@@ -89,6 +89,8 @@ h1 {
 
 .info-block {
     padding: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
     border-radius: 15px;
     background-color: #2a2a3b;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
@@ -100,8 +102,9 @@ h1 {
 .info-block:hover,
 .wagon-wheel-block:hover,
 .plot-block:hover {
-    transform:transform 0.3s, box-shadow 0.3s;
-   
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.9);
+    transition: all 0.3s ease; /* Adds smooth easing */
 }
 
 
@@ -120,7 +123,7 @@ h1 {
     font-weight: 500;
 }
 
-.info-block .stat-value {
+.info-block .stat-value  {
     font-size: 2rem;
     color: white;
     font-weight: 700;
@@ -138,6 +141,7 @@ h1 {
 
 .wagon-wheel-block {
     padding: 20px;
+    padding-top: 5px;
     border-radius: 15px;
     background-color: #2a2a3b;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
@@ -162,7 +166,7 @@ h1 {
 .wagon-wheel-block h2 {
     font-size: 2rem;
     color: #ff9800;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-family: 'Orbitron', sans-serif;
 }
 

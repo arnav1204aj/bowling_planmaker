@@ -81,8 +81,8 @@
             const playerCard = document.createElement('div');
             playerCard.className = 'info-block player-profile';
             playerCard.innerHTML = `
-                <h2>${playerName}</h2>
-                <p><strong>Batting Hand:</strong> ${bathand}</p>
+                <h2>${playerName}</h2> <span>(${bathand})</span>
+                
                 <p><strong>Pace Intent:</strong> <span class="stat-value">${effsrData.pace.toFixed(2)} <span class="rank-highlight">(RANK ${paceRank})</span></span></p>
                 <p><strong>Spin Intent:</strong> <span class="stat-value">${effsrData.spin.toFixed(2)} <span class="rank-highlight">(RANK ${spinRank})</span></span></p>
                 <p><strong>Pace Rel:</strong> <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} <span class="rank-highlight">(RANK ${vpaceRank})</span></span></p>
