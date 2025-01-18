@@ -85,8 +85,8 @@
                 <p><strong>Batting Hand:</strong> ${bathand}</p>
                 <p><strong>Pace Intent:</strong> <span class="stat-value">${effsrData.pace.toFixed(2)} <span class="rank-highlight">(RANK ${paceRank})</span></span></p>
                 <p><strong>Spin Intent:</strong> <span class="stat-value">${effsrData.spin.toFixed(2)} <span class="rank-highlight">(RANK ${spinRank})</span></span></p>
-                <p><strong>Pace Reliability:</strong> <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} <span class="rank-highlight">(RANK ${vpaceRank})</span></span></p>
-                <p><strong>Spin Reliability:</strong> <span class="stat-value">${(1/fshotsData.spin).toFixed(2)} <span class="rank-highlight">(RANK ${vspinRank})</span></span></p>
+                <p><strong>Pace Rel:</strong> <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} <span class="rank-highlight">(RANK ${vpaceRank})</span></span></p>
+                <p><strong>Spin Rel:</strong> <span class="stat-value">${(1/fshotsData.spin).toFixed(2)} <span class="rank-highlight">(RANK ${vspinRank})</span></span></p>
                 <p><strong>360 Score:</strong> <span class="stat-value">${Math.round(playerInfo['360score'])} <span class="rank-highlight">(RANK ${player360Rank})</span></span></p>
             `;
             console.log(playerInfo['iww'])
