@@ -130,10 +130,16 @@
             weakspotPlot.src = `weakspots/${playerName.split(' ').join('_')}_ws.png`;
             targetDeliveriesBlock.appendChild(weakspotPlot);
             
-
-            row.appendChild(rightColumn);
+            if (window.innerWidth < 768) {
+        rightColumn.appendChild(targetDeliveriesBlock);  // Add to the right column on mobile
+        row.appendChild(rightColumn);
+        dashboard.appendChild(row);
+    } else {
+        row.appendChild(rightColumn);
             dashboard.appendChild(row);
-            dashboard.appendChild(targetDeliveriesBlock);
+            dashboard.appendChild(targetDeliveriesBlock); // Add to the dashboard for larger screens
+    }
+            
         }
 
         function showSuggestions() {
