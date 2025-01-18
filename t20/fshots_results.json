@@ -1,0 +1,458 @@
+{
+    "Reeza Hendricks": {
+        "pace": 0.97,
+        "spin": 0.92,
+        "pacerank": 40,
+        "spinrank": 40
+    },
+    "Faf du Plessis": {
+        "pace": 1.0,
+        "spin": 0.86,
+        "pacerank": 50,
+        "spinrank": 23
+    },
+    "Rilee Rossouw": {
+        "pace": 0.98,
+        "spin": 1.23,
+        "pacerank": 44,
+        "spinrank": 71
+    },
+    "David Miller": {
+        "pace": 0.9,
+        "spin": 0.81,
+        "pacerank": 24,
+        "spinrank": 12
+    },
+    "Chris Gayle": {
+        "pace": 1.05,
+        "spin": 1.22,
+        "pacerank": 60,
+        "spinrank": 70
+    },
+    "Kieron Pollard": {
+        "pace": 0.92,
+        "spin": 0.87,
+        "pacerank": 33,
+        "spinrank": 25
+    },
+    "Andre Russell": {
+        "pace": 1.0,
+        "spin": 0.87,
+        "pacerank": 51,
+        "spinrank": 26
+    },
+    "Lendl Simmons": {
+        "pace": 1.15,
+        "spin": 0.88,
+        "pacerank": 72,
+        "spinrank": 29
+    },
+    "Andre Fletcher": {
+        "pace": 0.99,
+        "spin": 0.88,
+        "pacerank": 47,
+        "spinrank": 30
+    },
+    "Jason Roy": {
+        "pace": 1.2,
+        "spin": 1.3,
+        "pacerank": 74,
+        "spinrank": 74
+    },
+    "Alex Hales": {
+        "pace": 1.05,
+        "spin": 1.15,
+        "pacerank": 61,
+        "spinrank": 69
+    },
+    "Jonny Bairstow": {
+        "pace": 1.25,
+        "spin": 1.32,
+        "pacerank": 76,
+        "spinrank": 76
+    },
+    "Martin Guptill": {
+        "pace": 0.89,
+        "spin": 0.84,
+        "pacerank": 21,
+        "spinrank": 17
+    },
+    "Kane Williamson": {
+        "pace": 0.76,
+        "spin": 0.75,
+        "pacerank": 4,
+        "spinrank": 9
+    },
+    "Colin Munro": {
+        "pace": 1.05,
+        "spin": 1.28,
+        "pacerank": 62,
+        "spinrank": 73
+    },
+    "Moeen Ali": {
+        "pace": 0.93,
+        "spin": 1.13,
+        "pacerank": 36,
+        "spinrank": 67
+    },
+    "Jos Buttler": {
+        "pace": 0.9,
+        "spin": 0.81,
+        "pacerank": 25,
+        "spinrank": 13
+    },
+    "David Warner": {
+        "pace": 0.9,
+        "spin": 0.84,
+        "pacerank": 26,
+        "spinrank": 18
+    },
+    "Shane Watson": {
+        "pace": 0.92,
+        "spin": 1.06,
+        "pacerank": 34,
+        "spinrank": 59
+    },
+    "Glenn Maxwell": {
+        "pace": 1.12,
+        "spin": 1.11,
+        "pacerank": 70,
+        "spinrank": 64
+    },
+    "Steven Smith": {
+        "pace": 0.92,
+        "spin": 0.85,
+        "pacerank": 35,
+        "spinrank": 21
+    },
+    "Mitchell Marsh": {
+        "pace": 0.84,
+        "spin": 0.88,
+        "pacerank": 16,
+        "spinrank": 31
+    },
+    "Marcus Stoinis": {
+        "pace": 0.79,
+        "spin": 0.82,
+        "pacerank": 9,
+        "spinrank": 14
+    },
+    "Matthew Wade": {
+        "pace": 0.98,
+        "spin": 1.05,
+        "pacerank": 45,
+        "spinrank": 57
+    },
+    "AB de Villiers": {
+        "pace": 0.83,
+        "spin": 0.97,
+        "pacerank": 14,
+        "spinrank": 50
+    },
+    "Quinton de Kock": {
+        "pace": 1.1,
+        "spin": 1.31,
+        "pacerank": 66,
+        "spinrank": 75
+    },
+    "Tamim Iqbal": {
+        "pace": 0.93,
+        "spin": 1.14,
+        "pacerank": 37,
+        "spinrank": 68
+    },
+    "Shakib Al Hasan": {
+        "pace": 1.03,
+        "spin": 0.93,
+        "pacerank": 53,
+        "spinrank": 45
+    },
+    "Litton Das": {
+        "pace": 0.83,
+        "spin": 0.91,
+        "pacerank": 15,
+        "spinrank": 38
+    },
+    "Rohit Sharma": {
+        "pace": 1.04,
+        "spin": 0.89,
+        "pacerank": 57,
+        "spinrank": 36
+    },
+    "Aaron Finch": {
+        "pace": 0.97,
+        "spin": 1.08,
+        "pacerank": 41,
+        "spinrank": 61
+    },
+    "Manish Pandey": {
+        "pace": 0.85,
+        "spin": 0.87,
+        "pacerank": 17,
+        "spinrank": 27
+    },
+    "Suryakumar Yadav": {
+        "pace": 0.85,
+        "spin": 0.88,
+        "pacerank": 18,
+        "spinrank": 32
+    },
+    "Suresh Raina": {
+        "pace": 0.91,
+        "spin": 0.92,
+        "pacerank": 30,
+        "spinrank": 41
+    },
+    "MS Dhoni": {
+        "pace": 0.79,
+        "spin": 0.74,
+        "pacerank": 10,
+        "spinrank": 7
+    },
+    "Shreyas Iyer": {
+        "pace": 0.82,
+        "spin": 0.8,
+        "pacerank": 13,
+        "spinrank": 11
+    },
+    "Ajinkya Rahane": {
+        "pace": 0.93,
+        "spin": 0.92,
+        "pacerank": 38,
+        "spinrank": 42
+    },
+    "Sanju Samson": {
+        "pace": 0.76,
+        "spin": 0.85,
+        "pacerank": 5,
+        "spinrank": 22
+    },
+    "Shikhar Dhawan": {
+        "pace": 1.03,
+        "spin": 1.12,
+        "pacerank": 54,
+        "spinrank": 65
+    },
+    "KL Rahul": {
+        "pace": 0.9,
+        "spin": 0.78,
+        "pacerank": 27,
+        "spinrank": 10
+    },
+    "Virat Kohli": {
+        "pace": 0.76,
+        "spin": 0.65,
+        "pacerank": 6,
+        "spinrank": 3
+    },
+    "Dinesh Karthik": {
+        "pace": 0.91,
+        "spin": 0.82,
+        "pacerank": 31,
+        "spinrank": 15
+    },
+    "Ambati Rayudu": {
+        "pace": 0.99,
+        "spin": 0.96,
+        "pacerank": 48,
+        "spinrank": 47
+    },
+    "Hardik Pandya": {
+        "pace": 0.91,
+        "spin": 0.71,
+        "pacerank": 32,
+        "spinrank": 4
+    },
+    "Shoaib Malik": {
+        "pace": 0.64,
+        "spin": 0.6,
+        "pacerank": 2,
+        "spinrank": 2
+    },
+    "Johnson Charles": {
+        "pace": 1.06,
+        "spin": 1.03,
+        "pacerank": 63,
+        "spinrank": 54
+    },
+    "Chris Lynn": {
+        "pace": 1.12,
+        "spin": 0.95,
+        "pacerank": 71,
+        "spinrank": 46
+    },
+    "Evin Lewis": {
+        "pace": 1.07,
+        "spin": 1.26,
+        "pacerank": 64,
+        "spinrank": 72
+    },
+    "Mohammad Hafeez": {
+        "pace": 0.9,
+        "spin": 1.02,
+        "pacerank": 28,
+        "spinrank": 53
+    },
+    "Mohammad Rizwan": {
+        "pace": 0.89,
+        "spin": 0.96,
+        "pacerank": 22,
+        "spinrank": 48
+    },
+    "Mohammad Nabi": {
+        "pace": 0.98,
+        "spin": 0.84,
+        "pacerank": 46,
+        "spinrank": 19
+    },
+    "James Vince": {
+        "pace": 0.9,
+        "spin": 0.84,
+        "pacerank": 29,
+        "spinrank": 20
+    },
+    "Kusal Mendis": {
+        "pace": 0.99,
+        "spin": 0.88,
+        "pacerank": 49,
+        "spinrank": 33
+    },
+    "Babar Azam": {
+        "pace": 0.73,
+        "spin": 0.71,
+        "pacerank": 3,
+        "spinrank": 5
+    },
+    "Mahmudullah": {
+        "pace": 0.85,
+        "spin": 0.74,
+        "pacerank": 19,
+        "spinrank": 8
+    },
+    "Ishan Kishan": {
+        "pace": 1.04,
+        "spin": 1.04,
+        "pacerank": 58,
+        "spinrank": 56
+    },
+    "Rishabh Pant": {
+        "pace": 1.03,
+        "spin": 1.03,
+        "pacerank": 55,
+        "spinrank": 55
+    },
+    "Nitish Rana": {
+        "pace": 1.17,
+        "spin": 1.09,
+        "pacerank": 73,
+        "spinrank": 63
+    },
+    "Glenn Phillips": {
+        "pace": 0.87,
+        "spin": 0.88,
+        "pacerank": 20,
+        "spinrank": 34
+    },
+    "Liam Livingstone": {
+        "pace": 1.01,
+        "spin": 0.86,
+        "pacerank": 52,
+        "spinrank": 24
+    },
+    "Dawid Malan": {
+        "pace": 1.1,
+        "spin": 0.99,
+        "pacerank": 67,
+        "spinrank": 52
+    },
+    "Rovman Powell": {
+        "pace": 0.93,
+        "spin": 0.87,
+        "pacerank": 39,
+        "spinrank": 28
+    },
+    "Nicholas Pooran": {
+        "pace": 0.97,
+        "spin": 0.92,
+        "pacerank": 42,
+        "spinrank": 43
+    },
+    "Darcy Short": {
+        "pace": 0.97,
+        "spin": 0.91,
+        "pacerank": 43,
+        "spinrank": 39
+    },
+    "Tim Seifert": {
+        "pace": 1.03,
+        "spin": 0.98,
+        "pacerank": 56,
+        "spinrank": 51
+    },
+    "Fakhar Zaman": {
+        "pace": 1.11,
+        "spin": 1.12,
+        "pacerank": 69,
+        "spinrank": 66
+    },
+    "Brandon King": {
+        "pace": 1.21,
+        "spin": 1.06,
+        "pacerank": 75,
+        "spinrank": 60
+    },
+    "Tim David": {
+        "pace": 0.78,
+        "spin": 0.88,
+        "pacerank": 8,
+        "spinrank": 35
+    },
+    "Shimron Hetmyer": {
+        "pace": 0.89,
+        "spin": 0.92,
+        "pacerank": 23,
+        "spinrank": 44
+    },
+    "Heinrich Klaasen": {
+        "pace": 0.77,
+        "spin": 0.83,
+        "pacerank": 7,
+        "spinrank": 16
+    },
+    "Shubman Gill": {
+        "pace": 0.63,
+        "spin": 0.55,
+        "pacerank": 1,
+        "spinrank": 1
+    },
+    "Aiden Markram": {
+        "pace": 0.81,
+        "spin": 0.9,
+        "pacerank": 12,
+        "spinrank": 37
+    },
+    "Phil Salt": {
+        "pace": 1.1,
+        "spin": 0.96,
+        "pacerank": 68,
+        "spinrank": 49
+    },
+    "Rahmanullah Gurbaz": {
+        "pace": 1.08,
+        "spin": 1.05,
+        "pacerank": 65,
+        "spinrank": 58
+    },
+    "Devon Conway": {
+        "pace": 1.04,
+        "spin": 1.08,
+        "pacerank": 59,
+        "spinrank": 62
+    },
+    "Ruturaj Gaikwad": {
+        "pace": 0.8,
+        "spin": 0.71,
+        "pacerank": 11,
+        "spinrank": 6
+    }
+}

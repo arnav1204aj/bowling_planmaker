@@ -37,6 +37,11 @@
             .then(data => { effsrResults = data; })
             .catch(error => console.error('Error loading effsr results JSON:', error));
 
+        fetch('t20/fshots_results.json')
+            .then(response => response.json())
+            .then(data => { fshotsResults = data; })
+            .catch(error => console.error('Error loading effsr results JSON:', error));
+
         fetch('t20/bathand.json')
             .then(response => response.json())
             .then(data => { bathandData = data; })
@@ -51,9 +56,10 @@
 
             const playerInfo = playerData[playerName];
             const effsrData = effsrResults[playerName];
+            const fshotsData = fshotsResults[playerName];
             const bathand = bathandData[playerName];
 
-            if (!playerInfo || !effsrData || !bathand) {
+            if (!playerInfo || !effsrData || !bathand || !fshotsData) {
                 console.error(`Data missing for ${playerName}`);
                 return;
             }
@@ -62,6 +68,8 @@
             const player360Rank = playerInfo.rank || 'N/A';
             const paceRank = effsrData.pacerank || 'N/A';
             const spinRank = effsrData.spinrank || 'N/A';
+            const vspinRank = fshotsData.spinrank || 'N/A';
+            const vpaceRank = fshotsData.pacerank || 'N/A';
 
             // Player info block
             const row = document.createElement('div');
@@ -77,6 +85,8 @@
                 <p><strong>Batting Hand:</strong> ${bathand}</p>
                 <p><strong>Pace Intent:</strong> <span class="stat-value">${effsrData.pace.toFixed(2)} <span class="rank-highlight">(RANK ${paceRank})</span></span></p>
                 <p><strong>Spin Intent:</strong> <span class="stat-value">${effsrData.spin.toFixed(2)} <span class="rank-highlight">(RANK ${spinRank})</span></span></p>
+                <p><strong>Pace Reliability:</strong> <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} <span class="rank-highlight">(RANK ${vpaceRank})</span></span></p>
+                <p><strong>Spin Reliability:</strong> <span class="stat-value">${(1/fshotsData.spin).toFixed(2)} <span class="rank-highlight">(RANK ${vspinRank})</span></span></p>
                 <p><strong>360 Score:</strong> <span class="stat-value">${Math.round(playerInfo['360score'])} <span class="rank-highlight">(RANK ${player360Rank})</span></span></p>
             `;
             console.log(playerInfo['iww'])
@@ -104,7 +114,14 @@
             efficiencyPlot.src = `plots/${playerName.split(' ').join('_')}_efficiency.png`;
             efficiencyBlock.appendChild(efficiencyPlot);
             rightColumn.appendChild(efficiencyBlock);
-
+            
+            const fshotsBlock = document.createElement('div');
+            fshotsBlock.className = 'plot-block';
+            fshotsBlock.innerHTML = `<h2>Vulnerability Plot</h2>`;
+            const fshotsPlot = document.createElement('img');
+            fshotsPlot.src = `vulplots/${playerName.split(' ').join('_')}_vulnerability.png`;
+            fshotsBlock.appendChild(fshotsPlot);
+            rightColumn.appendChild(fshotsBlock);
             // Target Deliveries plot block
             const targetDeliveriesBlock = document.createElement('div');
             targetDeliveriesBlock.className = 'plot-block';
