@@ -291,11 +291,7 @@ h1 {
     border-radius: 4px;
 }
 
-/* Accessibility: Focus styles */
-.stat-link:focus {
-    outline: 2px dashed #ff9800;
-    outline-offset: 4px;
-}
+
 @media screen and (max-width: 768px) {
     .dashboard-row {
         flex-direction: column;
