@@ -124,13 +124,14 @@
         </table>
     </div>
 
-    <div class="footer">
-        &copy; 2025 Cricket Stats. All rights reserved.
-    </div>
-
     <script>
         let playerData, effsrResults, fshotsResults;
 
+        // Get metric from query string or default to 'pace_intent'
+        const urlParams = new URLSearchParams(window.location.search);
+        const defaultMetric = urlParams.get('metric') || 'pace_intent';
+
+        // Fetch JSON data
         Promise.all([
             fetch('t20/stat360.json').then(response => response.json()),
             fetch('t20/effsr_results.json').then(response => response.json()),
@@ -140,6 +141,11 @@
             playerData = playerStats;
             effsrResults = effsrData;
             fshotsResults = fshotsData;
+
+            // Set the default selected metric
+            document.getElementById('metricSelect').value = defaultMetric;
+
+            // Update rankings based on default metric
             updateRankings();
         })
         .catch(error => console.error('Error loading JSON data:', error));
@@ -183,5 +189,3 @@
     </script>
 </body>
 </html>
-
-
