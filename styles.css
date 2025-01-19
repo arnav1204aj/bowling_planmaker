@@ -66,8 +66,34 @@ h1 {
     max-height: 200px;
     overflow-y: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px; /* Adds margin after suggestions */
 }
 
+/* Customize the scrollbar */
+.suggestions::-webkit-scrollbar {
+    width: 10px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background: #121212; /* Darker background for scrollbar track */
+    border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: #ff9800; /* Matches the theme color */
+    border-radius: 10px;
+    border: 2px solid #2a2a3b; /* Adds space between the scrollbar and track */
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+    background: #ffa726; /* Lighter orange on hover for better interactivity */
+}
+
+/* For non-webkit browsers, if supported */
+.suggestions {
+    scrollbar-color: #ff9800 #121212; /* Thumb color and track color */
+    scrollbar-width: thin;
+}
 .suggestion-item {
     padding: 10px 20px;
     cursor: pointer;
@@ -204,6 +230,7 @@ h1 {
 
 .plot-block {
     padding: 20px;
+    padding-bottom: 40px;
     border-radius: 15px;
     background-color: #2a2a3b;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
@@ -283,6 +310,13 @@ h1 {
     .player-profile .stat-value {
         font-size: 1.6rem;
         line-height: 1.6;
+    }
+    .wagon-wheel-block, .info-block, .plot-block {
+        padding: 15px;
+        padding-top: 10px;
+    }
+    .wagon-wheel-block h2, .plot-block h2{
+        margin-top: 10px;
     }
 }
 
