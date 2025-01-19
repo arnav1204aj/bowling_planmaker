@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Rankings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #121212);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            background-color: #2a2a3b;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff9800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 50px;
+            background-color: #2a2a3b;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            outline: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        select:focus {
+            background-color: #3a3a4f;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        th {
+            background-color: #ff9800;
+            color: #121212;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2a2a3b;
+        }
+
+        tr:hover {
+            background-color: #3a3a4f;
+        }
+
+        td {
+            font-size: 1.2rem;
+            color: #b0bec5;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1e1e2f;
+            color: #b0bec5;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Player Rankings</h1>
+        <select id="metricSelect" onchange="updateRankings()">
+            <option value="pace_intent">Pace Intent</option>
+            <option value="spin_intent">Spin Intent</option>
+            <option value="pace_rel">Pace Rel</option>
+            <option value="spin_rel">Spin Rel</option>
+            <option value="360_score">360 Score</option>
+        </select>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody id="rankingsTable">
+                <!-- Rankings will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Cricket Stats. All rights reserved.
+    </div>
+
+    <script>
+        let playerData, effsrResults, fshotsResults;
+
+        Promise.all([
+            fetch('t20/stat360.json').then(response => response.json()),
+            fetch('t20/effsr_results.json').then(response => response.json()),
+            fetch('t20/fshots_results.json').then(response => response.json())
+        ])
+        .then(([playerStats, effsrData, fshotsData]) => {
+            playerData = playerStats;
+            effsrResults = effsrData;
+            fshotsResults = fshotsData;
+            updateRankings();
+        })
+        .catch(error => console.error('Error loading JSON data:', error));
+
+        function updateRankings() {
+            const metric = document.getElementById('metricSelect').value;
+            const rankingsTable = document.getElementById('rankingsTable');
+
+            let rankings = [];
+
+            if (metric === 'pace_intent' || metric === 'spin_intent') {
+                rankings = Object.entries(effsrResults)
+                    .map(([playerName, stats]) => ({
+                        name: playerName,
+                        value: metric === 'pace_intent' ? stats.pace : stats.spin
+                    }));
+            } else if (metric === 'pace_rel' || metric === 'spin_rel') {
+                rankings = Object.entries(fshotsResults)
+                    .map(([playerName, stats]) => ({
+                        name: playerName,
+                        value: metric === 'pace_rel' ? 1 / stats.pace : 1 / stats.spin
+                    }));
+            } else if (metric === '360_score') {
+                rankings = Object.entries(playerData)
+                    .map(([playerName, stats]) => ({
+                        name: playerName,
+                        value: stats['360score']
+                    }));
+            }
+
+            rankings.sort((a, b) => b.value - a.value);
+
+            rankingsTable.innerHTML = rankings.map((player, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${player.name}</td>
+                    <td>${player.value.toFixed(2)}</td>
+                </tr>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
+
+

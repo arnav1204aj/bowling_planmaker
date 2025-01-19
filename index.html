@@ -82,12 +82,47 @@
             playerCard.className = 'info-block player-profile';
             playerCard.innerHTML = `
                 <h2>${playerName}</h2> <span>(${bathand})</span>
-                
-                <p><strong>Pace Intent:</strong> <span class="stat-value">${effsrData.pace.toFixed(2)} <span class="rank-highlight">(RANK ${paceRank})</span></span></p>
-                <p><strong>Spin Intent:</strong> <span class="stat-value">${effsrData.spin.toFixed(2)} <span class="rank-highlight">(RANK ${spinRank})</span></span></p>
-                <p><strong>Pace Rel:</strong> <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} <span class="rank-highlight">(RANK ${vpaceRank})</span></span></p>
-                <p><strong>Spin Rel:</strong> <span class="stat-value">${(1/fshotsData.spin).toFixed(2)} <span class="rank-highlight">(RANK ${vspinRank})</span></span></p>
-                <p><strong>360 Score:</strong> <span class="stat-value">${Math.round(playerInfo['360score'])} <span class="rank-highlight">(RANK ${player360Rank})</span></span></p>
+
+    <p>
+        <strong>Pace Intent:</strong> 
+            <span class="stat-value">${effsrData.pace.toFixed(2)} 
+        <a href="rankings.html?metric=pace_intent"; title="Click to see full rankings for Pace Intent"; class="stat-link";>
+            
+            <span class="rank-highlight">(RANK ${paceRank})</span></span>
+        </a>
+    </p>
+    <p>
+         <strong>Spin Intent:</strong> 
+            <span class="stat-value">${effsrData.spin.toFixed(2)} 
+        <a href="rankings.html?metric=spin_intent"; title="Click to see full rankings for Spin Intent"; class="stat-link";>
+           
+            <span class="rank-highlight">(RANK ${spinRank})</span></span>
+        </a>
+    </p>
+    <p>
+         <strong>Pace Rel:</strong>
+            <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} 
+        <a href="rankings.html?metric=pace_rel";  title="Click to see full rankings for Pace Rel"; class="stat-link";>
+            
+            <span class="rank-highlight">(RANK ${vpaceRank})</span></span>
+        </a>
+    </p>
+    <p>
+        <strong>Spin Rel:</strong> 
+            <span class="stat-value">${(1/fshotsData.spin).toFixed(2)} 
+        <a href="rankings.html?metric=spin_rel" ; title="Click to see full rankings for Spin Rel"; class="stat-link";>
+           
+            <span class="rank-highlight">(RANK ${vspinRank})</span></span>
+        </a>
+    </p>
+    <p>
+        <strong>360 Score:</strong> 
+            <span class="stat-value">${Math.round(playerInfo['360score'])}
+        <a href="rankings.html?metric=360_score" ; title="Click to see full rankings for 360 Score"; class="stat-link";>
+             
+            <span class="rank-highlight">(RANK ${player360Rank})</span></span>
+        </a>
+    </p>
             `;
             console.log(playerInfo['iww'])
             // Wagon Wheel block

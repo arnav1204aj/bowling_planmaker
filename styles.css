@@ -135,6 +135,7 @@ h1 {
     transition: transform 0.3s, box-shadow 0.3s;
     overflow: hidden;
     position: relative;
+    text-decoration: none !important;
     
 }
 
@@ -191,6 +192,9 @@ h1 {
     height: 100%;
     text-align: left; 
 }
+
+
+
 
 .wagon-wheel-block img {
     width: 80%;
@@ -254,6 +258,10 @@ h1 {
     font-family: 'Orbitron', sans-serif;
 }
 
+
+
+
+
 .rank-highlight {
     font-size: 1.2rem;
     color: #ff9800;
@@ -262,7 +270,32 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+.stat-link {
+    text-decoration: none;
+    color: #0073e6;
+    border-bottom: 2px solid transparent; /* For hover effect */
+    transition: color 0.3s ease, border-color 0.3s ease; /* Smooth hover */
+}
 
+/* Hover effect for links */
+.stat-link:hover {
+    color: #005bb5; /* Darker blue */
+    border-color: #ff9800; /* Highlight border */
+}
+
+/* Optional: Add a subtle background change */
+.stat-link:hover .rank-highlight {
+    background-color: #ff9800;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Accessibility: Focus styles */
+.stat-link:focus {
+    outline: 2px dashed #ff9800;
+    outline-offset: 4px;
+}
 @media screen and (max-width: 768px) {
     .dashboard-row {
         flex-direction: column;
