@@ -86,7 +86,7 @@
 
         td {
             font-size: 1.2rem;
-            color: #b0bec5;
+            color: white;
         }
 
         .footer {
@@ -129,26 +129,89 @@
 
         // Get metric from query string or default to 'pace_intent'
         const urlParams = new URLSearchParams(window.location.search);
-        const defaultMetric = urlParams.get('metric') || 'pace_intent';
+const defaultMetric = urlParams.get('metric') || 'pace_intent';
+const source = urlParams.get('source');
+const playerName = urlParams.get('player');
 
-        // Fetch JSON data
-        Promise.all([
-            fetch('t20/stat360.json').then(response => response.json()),
-            fetch('t20/effsr_results.json').then(response => response.json()),
-            fetch('t20/fshots_results.json').then(response => response.json())
-        ])
-        .then(([playerStats, effsrData, fshotsData]) => {
-            playerData = playerStats;
-            effsrResults = effsrData;
-            fshotsResults = fshotsData;
+// Fetch JSON data
+Promise.all([
+    fetch('t20/stat360.json').then(response => response.json()),
+    fetch('t20/effsr_results.json').then(response => response.json()),
+    fetch('t20/fshots_results.json').then(response => response.json())
+])
+.then(([playerStats, effsrData, fshotsData]) => {
+    playerData = playerStats;
+    effsrResults = effsrData;
+    fshotsResults = fshotsData;
 
-            // Set the default selected metric
-            document.getElementById('metricSelect').value = defaultMetric;
+    if (source === 'player' && playerName) {
+        showPlayerSpecificRankings(playerName, defaultMetric);
+    } else {
+        // Normal rankings page behavior
+        document.getElementById('metricSelect').value = defaultMetric;
+        updateRankings();
+    }
+})
+.catch(error => console.error('Error loading JSON data:', error));
 
-            // Update rankings based on default metric
-            updateRankings();
-        })
-        .catch(error => console.error('Error loading JSON data:', error));
+function showPlayerSpecificRankings(playerName, metric) {
+    const rankingsTable = document.getElementById('rankingsTable');
+    const metricSelect = document.getElementById('metricSelect');
+    metricSelect.style.display = 'none'; // Hide the dropdown
+
+    let playerValue, playerRank, rankings;
+
+    if (metric === 'pace_intent' || metric === 'spin_intent') {
+        rankings = Object.entries(effsrResults)
+            .map(([name, stats]) => ({
+                name,
+                value: metric === 'pace_intent' ? stats.pace : stats.spin
+            }));
+    } else if (metric === 'pace_rel' || metric === 'spin_rel') {
+        rankings = Object.entries(fshotsResults)
+            .map(([name, stats]) => ({
+                name,
+                value: metric === 'pace_rel' ? 1 / stats.pace : 1 / stats.spin
+            }));
+    } else if (metric === '360_score') {
+        rankings = Object.entries(playerData)
+            .map(([name, stats]) => ({
+                name,
+                value: stats['360score']
+            }));
+    }
+
+    rankings.sort((a, b) => b.value - a.value);
+
+    const playerIndex = rankings.findIndex(player => player.name === playerName);
+    if (playerIndex !== -1) {
+        playerValue = rankings[playerIndex].value.toFixed(2);
+        playerRank = playerIndex + 1;
+    } else {
+        console.error(`Player ${playerName} not found in rankings.`);
+        return;
+    }
+
+    // Display player's rank and value at the top
+    rankingsTable.innerHTML = `
+     <tr style="background-color :#ff9800 ; color:white ; font-weight: bold; font-size: 1.1rem;">
+    <td>${playerRank}</td>
+    <td>${playerName}</td>
+    <td>${playerValue}</td>
+</tr>
+
+
+
+
+    ` + rankings.map((player, index) => `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${player.name}</td>
+            <td>${player.value.toFixed(2)}</td>
+        </tr>
+    `).join('');
+}
+
 
         function updateRankings() {
             const metric = document.getElementById('metricSelect').value;
