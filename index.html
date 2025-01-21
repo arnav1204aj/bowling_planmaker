@@ -225,6 +225,13 @@ window.addEventListener('popstate', checkURLParameter);
 
 // Function to check the URL parameter
 function checkURLParameter() {
+    if (!document.getElementById('homeButton')) {
+        const button = document.createElement('button');
+        button.id = 'homeButton';
+        button.innerHTML = '&#x1F3E0;';
+        button.onclick = goHome;
+        document.body.appendChild(button);
+    }
     const urlParams = new URLSearchParams(window.location.search);
     const playerName = urlParams.get('player');
 
