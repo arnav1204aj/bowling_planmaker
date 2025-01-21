@@ -25,31 +25,29 @@
         let bathandData;
         let fshotsResults;
     
-        const loadData = async () => {
-            try {
-                const playerResponse = await fetch('t20/stat360.json');
-                playerData = await playerResponse.json();
-    
-                const effsrResponse = await fetch('t20/effsr_results.json');
-                effsrResults = await effsrResponse.json();
-    
-                const fshotsResponse = await fetch('t20/fshots_results.json');
-                fshotsResults = await fshotsResponse.json();
-    
-                const bathandResponse = await fetch('t20/bathand.json');
-                bathandData = await bathandResponse.json();
-    
-                // Check if a player was previously selected and render their info
-                const savedPlayer = localStorage.getItem('selectedPlayer');
-                if (savedPlayer && playerData[savedPlayer]) {
-                    renderPlayerCard(savedPlayer);
-                }
-            } catch (error) {
-                console.error('Error loading data:', error);
-            }
-        };
-    
-        loadData();
+        fetch('t20/stat360.json')
+    .then(response => response.json())
+    .then(data => { 
+        playerData = data;
+        console.log("Player data loaded.");
+        checkURLParameter(); // Check URL parameter after data is loaded
+    })
+    .catch(error => console.error('Error loading player stats JSON:', error));
+
+fetch('t20/effsr_results.json')
+    .then(response => response.json())
+    .then(data => { effsrResults = data; })
+    .catch(error => console.error('Error loading effsr results JSON:', error));
+
+fetch('t20/fshots_results.json')
+    .then(response => response.json())
+    .then(data => { fshotsResults = data; })
+    .catch(error => console.error('Error loading fshots results JSON:', error));
+
+fetch('t20/bathand.json')
+    .then(response => response.json())
+    .then(data => { bathandData = data; })
+    .catch(error => console.error('Error loading bathand JSON:', error));
 
         function renderPlayerCard(playerName) {
             if (!playerData || !effsrResults || !bathandData || !fshotsResults) {
@@ -82,7 +80,10 @@
             const spinRank = effsrData.spinrank || 'N/A';
             const vspinRank = fshotsData.spinrank || 'N/A';
             const vpaceRank = fshotsData.pacerank || 'N/A';
-    
+              
+            const url = new URL(window.location.href);
+    url.searchParams.set('player', playerName);
+    history.pushState({}, '', url);
             // Player info block
             const row = document.createElement('div');
             row.className = 'dashboard-row';
@@ -205,6 +206,20 @@
                 <div class="suggestion-item" onclick="renderPlayerCard('${player}')">${player}</div>
             `).join('');
         }
+        function checkURLParameter() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const playerName = urlParams.get('player');
+
+    if (playerName) {
+        // Wait for data to be available, then render
+        const interval = setInterval(() => {
+            if (playerData && effsrResults && bathandData && playerData[playerName]) {
+                renderPlayerCard(playerName);
+                clearInterval(interval); // Stop checking once data is available
+            }
+        }, 100); // Check every 100ms
+    }
+}
     </script>
     
 </body>
