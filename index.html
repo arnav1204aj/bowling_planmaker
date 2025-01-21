@@ -50,10 +50,10 @@
         };
     
         loadData();
-        
-        window.addEventListener('beforeunload', () => {
-        localStorage.removeItem('selectedPlayer');
-    });
+
+    //     window.addEventListener('beforeunload', () => {
+    //     localStorage.removeItem('selectedPlayer');
+    // });
         function renderPlayerCard(playerName) {
             if (!playerData || !effsrResults || !bathandData || !fshotsResults) {
                 console.error('Data not fully loaded. Cannot render player card.');
