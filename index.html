@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+   
+<button id="homeButton" onclick="goHome()">Home</button>
+
     <div class="container">
         <h1>Bowling Plan-Maker</h1>
         <input type="text" id="searchBar" placeholder="Search for a player..." oninput="showSuggestions()">
@@ -207,6 +210,16 @@ fetch('t20/bathand.json')
                 <div class="suggestion-item" onclick="renderPlayerCard('${player}')">${player}</div>
             `).join('');
         }
+
+        // Function to go to home (remove player parameter and run checkURLParameter)
+function goHome() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('player'); // Remove 'player' parameter from URL
+    history.pushState({}, '', url); // Update the URL without refreshing the page
+
+    checkURLParameter(); // Call checkURLParameter to update the content
+}
+
         // Add the popstate listener to handle back button clicks
 window.addEventListener('popstate', checkURLParameter);
 
