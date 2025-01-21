@@ -15,11 +15,12 @@
 
         <div id="dashboard"></div>
         <div id="plot-section" class="dashboard-row"></div>
-    </div>
+        </div>
 
     
 
     <script>
+        
         let playerData;
         let effsrResults;
         let bathandData;
@@ -206,7 +207,11 @@ fetch('t20/bathand.json')
                 <div class="suggestion-item" onclick="renderPlayerCard('${player}')">${player}</div>
             `).join('');
         }
-        function checkURLParameter() {
+        // Add the popstate listener to handle back button clicks
+window.addEventListener('popstate', checkURLParameter);
+
+// Function to check the URL parameter
+function checkURLParameter() {
     const urlParams = new URLSearchParams(window.location.search);
     const playerName = urlParams.get('player');
 
@@ -218,8 +223,15 @@ fetch('t20/bathand.json')
                 clearInterval(interval); // Stop checking once data is available
             }
         }, 100); // Check every 100ms
+    } else {
+        // If no player name in the URL, clear dashboard and plot section
+        document.getElementById('dashboard').innerHTML = '';
+        document.getElementById('plot-section').innerHTML = '';
     }
 }
+
+// Your other functions like renderPlayerCard, showSuggestions, etc., remain the same
+
     </script>
     
 </body>
