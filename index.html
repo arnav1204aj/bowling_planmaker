@@ -25,31 +25,29 @@
         let bathandData;
         let fshotsResults;
     
-        const loadData = async () => {
-            try {
-                const playerResponse = await fetch('t20/stat360.json');
-                playerData = await playerResponse.json();
-    
-                const effsrResponse = await fetch('t20/effsr_results.json');
-                effsrResults = await effsrResponse.json();
-    
-                const fshotsResponse = await fetch('t20/fshots_results.json');
-                fshotsResults = await fshotsResponse.json();
-    
-                const bathandResponse = await fetch('t20/bathand.json');
-                bathandData = await bathandResponse.json();
-    
-                // Check if a player was previously selected and render their info
-                const savedPlayer = localStorage.getItem('selectedPlayer');
-                if (savedPlayer && playerData[savedPlayer]) {
-                    renderPlayerCard(savedPlayer);
-                }
-            } catch (error) {
-                console.error('Error loading data:', error);
-            }
-        };
-    
-        loadData();
+        fetch('t20/stat360.json')
+    .then(response => response.json())
+    .then(data => { 
+        playerData = data;
+        console.log("Player data loaded.");
+        checkLocalStorage(); // Check local storage after data is loaded
+    })
+    .catch(error => console.error('Error loading player stats JSON:', error));
+
+fetch('t20/effsr_results.json')
+    .then(response => response.json())
+    .then(data => { effsrResults = data; })
+    .catch(error => console.error('Error loading effsr results JSON:', error));
+
+fetch('t20/fshots_results.json')
+    .then(response => response.json())
+    .then(data => { fshotsResults = data; })
+    .catch(error => console.error('Error loading fshots results JSON:', error));
+
+fetch('t20/bathand.json')
+    .then(response => response.json())
+    .then(data => { bathandData = data; })
+    .catch(error => console.error('Error loading bathand JSON:', error));
 
     //     window.addEventListener('beforeunload', () => {
     //     localStorage.removeItem('selectedPlayer');
@@ -208,6 +206,17 @@
                 <div class="suggestion-item" onclick="renderPlayerCard('${player}')">${player}</div>
             `).join('');
         }
+        function checkLocalStorage() {
+    const storedPlayer = localStorage.getItem('selectedPlayer');
+    if (storedPlayer && playerData) {
+        renderPlayerCard(storedPlayer);
+    }
+}
+
+// Clear local storage when the tab is closed
+window.addEventListener('beforeunload', () => {
+    localStorage.removeItem('selectedPlayer');
+});
     </script>
     
 </body>
