@@ -23,108 +23,119 @@
         let playerData;
         let effsrResults;
         let bathandData;
-
-        fetch('t20/stat360.json')
-    .then(response => response.json())
-    .then(data => { 
-        playerData = data;
-        console.log(Object.keys(playerData)); // Log all player names
-    })
-    .catch(error => console.error('Error loading player stats JSON:', error));
-
-        fetch('t20/effsr_results.json')
-            .then(response => response.json())
-            .then(data => { effsrResults = data; })
-            .catch(error => console.error('Error loading effsr results JSON:', error));
-
-        fetch('t20/fshots_results.json')
-            .then(response => response.json())
-            .then(data => { fshotsResults = data; })
-            .catch(error => console.error('Error loading effsr results JSON:', error));
-
-        fetch('t20/bathand.json')
-            .then(response => response.json())
-            .then(data => { bathandData = data; })
-            .catch(error => console.error('Error loading bathand JSON:', error));
-
+        let fshotsResults;
+    
+        const loadData = async () => {
+            try {
+                const playerResponse = await fetch('t20/stat360.json');
+                playerData = await playerResponse.json();
+    
+                const effsrResponse = await fetch('t20/effsr_results.json');
+                effsrResults = await effsrResponse.json();
+    
+                const fshotsResponse = await fetch('t20/fshots_results.json');
+                fshotsResults = await fshotsResponse.json();
+    
+                const bathandResponse = await fetch('t20/bathand.json');
+                bathandData = await bathandResponse.json();
+    
+                // Check if a player was previously selected and render their info
+                const savedPlayer = localStorage.getItem('selectedPlayer');
+                if (savedPlayer && playerData[savedPlayer]) {
+                    renderPlayerCard(savedPlayer);
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        };
+    
+        loadData();
+    
         function renderPlayerCard(playerName) {
+            if (!playerData || !effsrResults || !bathandData || !fshotsResults) {
+                console.error('Data not fully loaded. Cannot render player card.');
+                return;
+            }
+    
             document.getElementById('suggestions').innerHTML = ''; // Clear suggestions
             const dashboard = document.getElementById('dashboard');
             const plotSection = document.getElementById('plot-section');
             dashboard.innerHTML = '';
             plotSection.innerHTML = ''; // Clear previous plots
-
+    
+            // Save the selected player in localStorage
+            localStorage.setItem('selectedPlayer', playerName);
+    
             const playerInfo = playerData[playerName];
             const effsrData = effsrResults[playerName];
             const fshotsData = fshotsResults[playerName];
             const bathand = bathandData[playerName];
-
+    
             if (!playerInfo || !effsrData || !bathand || !fshotsData) {
                 console.error(`Data missing for ${playerName}`);
                 return;
             }
-
+    
             // Access rank values
             const player360Rank = playerInfo.rank || 'N/A';
             const paceRank = effsrData.pacerank || 'N/A';
             const spinRank = effsrData.spinrank || 'N/A';
             const vspinRank = fshotsData.spinrank || 'N/A';
             const vpaceRank = fshotsData.pacerank || 'N/A';
-
+    
             // Player info block
             const row = document.createElement('div');
             row.className = 'dashboard-row';
-
+    
             const leftColumn = document.createElement('div');
             leftColumn.className = 'left-column';
-
+    
             const playerCard = document.createElement('div');
             playerCard.className = 'info-block player-profile';
             playerCard.innerHTML = `
                 <h2>${playerName}</h2> <span>(${bathand})</span>
-
-    <p>
-        <strong>Pace Intent:</strong> 
-            <span class="stat-value">${effsrData.pace.toFixed(2)} 
-        <a href="rankings.html?metric=pace_intent&source=player&player=${encodeURIComponent(playerName)}"; title="Click to see full rankings for Pace Intent"; class="stat-link";>
-            
-            <span class="rank-highlight">(RANK ${paceRank})</span></span>
-        </a>
-    </p>
-    <p>
-         <strong>Spin Intent:</strong> 
-            <span class="stat-value">${effsrData.spin.toFixed(2)} 
-        <a href="rankings.html?metric=spin_intent&source=player&player=${encodeURIComponent(playerName)}"; title="Click to see full rankings for Spin Intent"; class="stat-link";>
-           
-            <span class="rank-highlight">(RANK ${spinRank})</span></span>
-        </a>
-    </p>
-    <p>
-         <strong>Pace Rel:</strong>
-            <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} 
-        <a href="rankings.html?metric=pace_rel&source=player&player=${encodeURIComponent(playerName)}";  title="Click to see full rankings for Pace Rel"; class="stat-link";>
-            
-            <span class="rank-highlight">(RANK ${vpaceRank})</span></span>
-        </a>
-    </p>
-    <p>
-        <strong>Spin Rel:</strong> 
-            <span class="stat-value">${(1/fshotsData.spin).toFixed(2)} 
-        <a href="rankings.html?metric=spin_rel&source=player&player=${encodeURIComponent(playerName)}" ; title="Click to see full rankings for Spin Rel"; class="stat-link";>
-           
-            <span class="rank-highlight">(RANK ${vspinRank})</span></span>
-        </a>
-    </p>
-    <p>
-        <strong>360 Score:</strong> 
-            <span class="stat-value">${Math.round(playerInfo['360score'])}
-        <a href="rankings.html?metric=360_score&source=player&player=${encodeURIComponent(playerName)}" ; title="Click to see full rankings for 360 Score"; class="stat-link";>
-             
-            <span class="rank-highlight">(RANK ${player360Rank})</span></span>
-        </a>
-    </p>
+                <p>
+                    <strong>Pace Intent:</strong> 
+                    <span class="stat-value">${effsrData.pace.toFixed(2)} 
+                        <a href="rankings.html?metric=pace_intent&source=player&player=${encodeURIComponent(playerName)}" title="Click to see full rankings for Pace Intent" class="stat-link">
+                            <span class="rank-highlight">(RANK ${paceRank})</span>
+                        </a>
+                    </span>
+                </p>
+                <p>
+                    <strong>Spin Intent:</strong> 
+                    <span class="stat-value">${effsrData.spin.toFixed(2)} 
+                        <a href="rankings.html?metric=spin_intent&source=player&player=${encodeURIComponent(playerName)}" title="Click to see full rankings for Spin Intent" class="stat-link">
+                            <span class="rank-highlight">(RANK ${spinRank})</span>
+                        </a>
+                    </span>
+                </p>
+                <p>
+                    <strong>Pace Rel:</strong>
+                    <span class="stat-value">${(1/fshotsData.pace).toFixed(2)} 
+                        <a href="rankings.html?metric=pace_rel&source=player&player=${encodeURIComponent(playerName)}" title="Click to see full rankings for Pace Rel" class="stat-link">
+                            <span class="rank-highlight">(RANK ${vpaceRank})</span>
+                        </a>
+                    </span>
+                </p>
+                <p>
+                    <strong>Spin Rel:</strong> 
+                    <span class="stat-value">${(1/fshotsData.spin).toFixed(2)} 
+                        <a href="rankings.html?metric=spin_rel&source=player&player=${encodeURIComponent(playerName)}" title="Click to see full rankings for Spin Rel" class="stat-link">
+                            <span class="rank-highlight">(RANK ${vspinRank})</span>
+                        </a>
+                    </span>
+                </p>
+                <p>
+                    <strong>360 Score:</strong> 
+                    <span class="stat-value">${Math.round(playerInfo['360score'])}
+                        <a href="rankings.html?metric=360_score&source=player&player=${encodeURIComponent(playerName)}" title="Click to see full rankings for 360 Score" class="stat-link">
+                            <span class="rank-highlight">(RANK ${player360Rank})</span>
+                        </a>
+                    </span>
+                </p>
             `;
-            console.log(playerInfo['iww'])
+    
             // Wagon Wheel block
             const wagonWheelCard = document.createElement('div');
             wagonWheelCard.className = 'wagon-wheel-block';
@@ -132,15 +143,15 @@
                 <h2>Intelligent Wagon Wheel</h2>
                 <img src="${playerInfo['iww']}" alt="Intelligent Wagon Wheel for ${playerName}">
             `;
-
+    
             leftColumn.appendChild(playerCard);
             leftColumn.appendChild(wagonWheelCard);
             row.appendChild(leftColumn);
-
+    
             // Plot Section (right column)
             const rightColumn = document.createElement('div');
             rightColumn.className = 'right-column';
-
+    
             // Efficiency plot block
             const efficiencyBlock = document.createElement('div');
             efficiencyBlock.className = 'plot-block';
@@ -157,6 +168,7 @@
             fshotsPlot.src = `vulplots/${playerName.split(' ').join('_')}_vulnerability.png`;
             fshotsBlock.appendChild(fshotsPlot);
             rightColumn.appendChild(fshotsBlock);
+            
             // Target Deliveries plot block
             const targetDeliveriesBlock = document.createElement('div');
             targetDeliveriesBlock.className = 'plot-block';
@@ -164,35 +176,37 @@
             const weakspotPlot = document.createElement('img');
             weakspotPlot.src = `weakspots/${playerName.split(' ').join('_')}_ws.png`;
             targetDeliveriesBlock.appendChild(weakspotPlot);
-            
+    
+            // Append plots to appropriate columns
             if (window.innerWidth < 768) {
-        rightColumn.appendChild(targetDeliveriesBlock);  // Add to the right column on mobile
-        row.appendChild(rightColumn);
-        dashboard.appendChild(row);
-    } else {
-        row.appendChild(rightColumn);
-            dashboard.appendChild(row);
-            dashboard.appendChild(targetDeliveriesBlock); // Add to the dashboard for larger screens
-    }
-            
+                rightColumn.appendChild(targetDeliveriesBlock);  // Add to the right column on mobile
+                row.appendChild(rightColumn);
+                dashboard.appendChild(row);
+            } else {
+                row.appendChild(rightColumn);
+                dashboard.appendChild(row);
+                dashboard.appendChild(targetDeliveriesBlock); // Add to the dashboard for larger screens
+            }
         }
-
+    
         function showSuggestions() {
             const searchBar = document.getElementById('searchBar');
             const suggestionsDiv = document.getElementById('suggestions');
             const query = searchBar.value.toLowerCase();
-
+    
             if (!query) {
                 suggestionsDiv.innerHTML = '';
+                localStorage.removeItem('selectedPlayer'); // Clear saved player on empty input
                 return;
             }
-
-            const matches = Object.keys(playerData).filter(player => player.toLowerCase().includes(query));
+    
+            const matches = Object.keys(playerData || {}).filter(player => player.toLowerCase().includes(query));
             suggestionsDiv.innerHTML = matches.map(player => `
                 <div class="suggestion-item" onclick="renderPlayerCard('${player}')">${player}</div>
             `).join('');
         }
     </script>
+    
 </body>
 </html>
 
