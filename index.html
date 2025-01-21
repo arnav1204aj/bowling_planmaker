@@ -221,34 +221,68 @@ function goHome() {
 }
 
         // Add the popstate listener to handle back button clicks
-window.addEventListener('popstate', checkURLParameter);
+        function goHome() {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('player'); // Remove 'player' parameter from URL
+        history.pushState({}, '', url); // Update the URL without refreshing the page
 
-// Function to check the URL parameter
-function checkURLParameter() {
-    if (!document.getElementById('homeButton')) {
-        const button = document.createElement('button');
-        button.id = 'homeButton';
-        button.innerHTML = '&#x1F3E0;';
-        button.onclick = goHome;
-        document.body.appendChild(button);
+        checkURLParameter(); // Call checkURLParameter to update the content
     }
-    const urlParams = new URLSearchParams(window.location.search);
-    const playerName = urlParams.get('player');
 
-    if (playerName) {
-        // Wait for data to be available, then render
-        const interval = setInterval(() => {
-            if (playerData && effsrResults && bathandData && playerData[playerName]) {
-                renderPlayerCard(playerName);
-                clearInterval(interval); // Stop checking once data is available
-            }
-        }, 100); // Check every 100ms
-    } else {
-        // If no player name in the URL, clear dashboard and plot section
-        document.getElementById('dashboard').innerHTML = '';
-        document.getElementById('plot-section').innerHTML = '';
+    // Function to create the home button (if it doesn't exist)
+    function createHomeButton() {
+        if (!document.getElementById('homeButton')) {
+            const button = document.createElement('button');
+            button.id = 'homeButton';
+            button.innerHTML = '&#x1F3E0; Home'; // Add home icon and text
+            button.onclick = goHome;
+            button.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                background-color: transparent;
+                border: none;
+                font-size: 1.5rem;
+                color: #ff9800;
+                cursor: pointer;
+                z-index: 1000;
+            `;
+            button.onmouseover = () => button.style.color = '#ffa726';
+            button.onmouseout = () => button.style.color = '#ff9800';
+            document.body.appendChild(button);
+        }
     }
-}
+
+    // Function to check the URL parameter and render content accordingly
+    function checkURLParameter() {
+        createHomeButton(); // Ensure the home button is created first
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const playerName = urlParams.get('player');
+
+        if (playerName) {
+            // Wait for data to be available, then render
+            const interval = setInterval(() => {
+                if (playerData && effsrResults && bathandData && playerData[playerName]) {
+                    renderPlayerCard(playerName);
+                    clearInterval(interval); // Stop checking once data is available
+                }
+            }, 100); // Check every 100ms
+        } else {
+            // If no player name in the URL, clear dashboard and plot section
+            document.getElementById('dashboard').innerHTML = '';
+            document.getElementById('plot-section').innerHTML = '';
+        }
+    }
+
+    // Add the popstate listener to handle back/forward navigation
+    window.addEventListener('popstate', checkURLParameter);
+
+    // Ensure the home button is created on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        createHomeButton(); // Create the home button immediately after DOM is ready
+        checkURLParameter(); // Check the URL for parameters and render content
+    });
 
 // Your other functions like renderPlayerCard, showSuggestions, etc., remain the same
 
